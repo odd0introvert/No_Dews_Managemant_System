@@ -68,7 +68,7 @@ def Staff_login(request):
     
         if request.method == 'POST':
 
-            name = str(request.POST.get('Name'))
+            name = str(request.POST.get('name'))
             password = str(request.POST.get('password'))
         
             try:
