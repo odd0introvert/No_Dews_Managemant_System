@@ -5,6 +5,8 @@ from .models import User, Staff, Student, Requests
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 def index(request):
@@ -145,9 +147,19 @@ def student(request):
                 student.save()
 
             if form2:
-                print("request made")
                 makereq = Requests(Roll_No = student.Roll_No, Class = student.Dept)
                 makereq.save()
+                staffs = Staff.objects.filter().values()
+                for staff in staffs:
+                    dept = staff.get('Dept')
+                    email = staff.get('Email')
+                    if dept == student.Dept or dept == 'library' or dept == 'PE' or dept == 'NSS' or dept == 'Hostel' or dept == 'Office' :
+                        subject = 'Dwe Verification Alert!'
+                        message = f'Hello, ' + student.Roll_No + ' requested for Dwe verification.'
+                        email_from = settings.EMAIL_HOST_USER
+                        recipient_list = [email, ]
+                        send_mail( subject, message, email_from, recipient_list )
+                        print('mail send to: ' + email)
                 return redirect('student')
 
         return render(request,'Student_home.html', {'student':student, 'req':Req, 'form1':form1, 'form2':form2})
