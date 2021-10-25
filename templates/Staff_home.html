@@ -13,7 +13,7 @@
             </div>
             <div class="col-span-1 grid place-items-center">
 
-                <a href="/logout" class=" font-semibold text-lg bg-red-600 hover:bg-red-700 text-white text-sm px-6 py-2 border rounded-md">logout</a>
+                <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white text-md px-4 py-2 border rounded-sm">logout</a>
                 
             </div>
         </div>
@@ -32,10 +32,12 @@
                         </svg>
 
                         {{ form1.username1 }}
+
+                        {{ form1.conduct }}
                     
                     </div>
 
-                    <button type="submit" class="text-white bg-indigo-500 px-4 py-2 rounded" >
+                    <button type="submit" class="text-white bg-indigo-500 px-4 py-2 rounded-sm" >
                         Add Student
                     </button>
                     
@@ -57,7 +59,7 @@
                     
                     </div>
 
-                    <button type="submit" class="text-white bg-red-500 px-4 py-2 rounded" >
+                    <button type="submit" class="text-white bg-red-500 px-4 py-2 rounded-sm" >
                         Remove Student
                     </button>
                     
@@ -68,12 +70,12 @@
 
         <div class=" h-3/6 overflow-y-auto">
 
-            <table class="min-w-full">
-                <thead>
+            <table class="w-full">
+                <thead class="w-full">
                     <tr>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Name</th>
+                            Name & Email</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Rollno & Regno</th>
@@ -83,24 +85,18 @@
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Phone</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
                 </thead>
 
-                <tbody class="bg-white">
+                <tbody class="bg-white w-full">
 
                     {% for student in students %}
 
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-full"
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                            alt="">
-                                    </div>
 
-                                    <div class="ml-4">
+                                    <div>
                                         <div class="text-sm leading-5 font-medium text-gray-900">{{student.Name}}
                                         </div>
                                         <div class="text-sm leading-5 text-gray-500">{{student.Email}}</div>
@@ -118,9 +114,9 @@
                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{student.Dept}}</span>
                             </td>
 
-                            <td
-                                class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{student.Phone}}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm text-gray-500">
+                                {{student.Phone}}
+                            </td>
 
                         </tr>
 
@@ -137,6 +133,12 @@
         
         {% for req in reqs %}
 
+        {% if staff.Dept == "library" %}
+
+        {% if req.Library == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
         <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
@@ -148,13 +150,210 @@
                     </svg>
                     <div class="flex flex-col ml-3">
                         <div class="font-medium leading-none">{{req.Roll_No}}</div>
-                        <p class="text-sm text-gray-600 leading-none mt-1">Is waiting requested for the verification
-                        </p>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
                     </div>
                 </div>
-                <button  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-full">Accept</button>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
             </div>
         </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif  staff.Dept == "pe" %}
+
+        {% if req.PE == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col ml-3">
+                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+            </div>
+        </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif  staff.Dept == "nss" %}
+
+        {% if req.NSS == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col ml-3">
+                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+            </div>
+        </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif  staff.Dept == "hostel" %}
+
+        {% if req.Hostel == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col ml-3">
+                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+            </div>
+        </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif  staff.Dept == "office" %}
+
+        {% if req.Office == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col ml-3">
+                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+            </div>
+        </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif  staff.Dept == "labs" %}
+
+        {% if req.Labs == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col ml-3">
+                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+            </div>
+        </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif req.Dept == False %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col ml-3">
+                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
+                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                
+                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+            </div>
+        </div>
+
+        </form>
+
+        {% endif %}
 
         {% endfor %}
         

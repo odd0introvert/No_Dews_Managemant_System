@@ -6,7 +6,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget= forms.TextInput(
             attrs={
-                "class":"block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner",
+                "class":"rounded-sm block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner",
                 "placeholder":"Roll Number"
             }
         )
@@ -14,7 +14,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "class":"block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner",
+                "class":"rounded-sm block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner",
                 "placeholder":"******"
             }
         )
@@ -26,6 +26,14 @@ class AddStudent(forms.Form):
             attrs={
                 "class":"w-full py-2 px-1 placeholder-indigo-400 outline-none placeholder-opacity-50",
                 "placeholder":"Roll Number"
+            }
+        )
+    )
+    conduct = forms.CharField(
+        widget= forms.TextInput(
+            attrs={
+                "class":"w-full py-2 px-1 placeholder-indigo-400 outline-none placeholder-opacity-50",
+                "placeholder":"Conduct"
             }
         )
     )
@@ -118,6 +126,33 @@ class UpdateStudent(forms.Form):
         )
     )
 
+    purpose = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
+                "placeholder":""
+            }
+        )
+    )
+
+    Admission_date = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
+                "type":"date",
+            }
+        )
+    )
+
+    Leaving_date = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
+                "type":"date",
+            }
+        )
+    )
+
 class MakeRequest(forms.Form):
     confirmation = forms.BooleanField(
         widget= forms.CheckboxInput(
@@ -126,3 +161,8 @@ class MakeRequest(forms.Form):
             }
         )
     )
+
+class ConfirmRequest(forms.Form):
+    rollno = forms.CharField(label="rollno")
+    dept = forms.CharField(label="dept")
+    
