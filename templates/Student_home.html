@@ -101,7 +101,7 @@
 
     {% endif %}
 
-    {% if student.Due_Department is False and student.Due_Library is False and student.Due_PE is False and student.Due_NSS is False and student.Due_Hostel is False and student.Due_Office is False and student.Due_Labs is False and student.Purpose_Of_TC is not None %}
+    {% if student.Due_Department is False or student.Due_Library is False or student.Due_PE is False or student.Due_NSS is False or student.Due_Hostel is False or student.Due_Office is False or student.Due_Labs is False %}
 
     <form action="" method="post">
 
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
+                    {% if student.Due_Library is False%}
                     <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
                     {% else %}
                     <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
+                    {% if student.Due_PE is False%}
                     <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
                     {% else %}
                     <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
@@ -162,7 +162,7 @@
                 </div>
 
                 <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
+                    {% if student.Due_NSS is False%}
                     <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
                     {% else %}
                     <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
@@ -174,7 +174,7 @@
                 </div>
 
                 <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
+                    {% if student.Due_Hostel is False%}
                     <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
                     {% else %}
                     <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
+                    {% if student.Due_Office is False%}
                     <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
                     {% else %}
                     <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
@@ -198,7 +198,7 @@
                 </div>
 
                 <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
+                    {% if student.Due_Labs is False%}
                     <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
                     {% else %}
                     <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>

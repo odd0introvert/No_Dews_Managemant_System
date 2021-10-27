@@ -68,7 +68,7 @@ def staff(request):
         form2 = RemoveStudent(request.POST)
         form3 = ConfirmRequest(request.POST)
         staff = Staff.objects.get(Name=request.user.username)
-        Reqs = Requests.objects.filter(Class=staff.Dept).values()
+        Reqs = Requests.objects.filter().values()
         students = Student.objects.filter(Dept=staff.Dept).values()
         if request.method == 'POST':
             if form1.is_valid():
