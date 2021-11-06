@@ -3,27 +3,29 @@
 {% block content %}
 
 <div class="grid min-h-screen place-items-center bg-gray-100">
-    <div class="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-sm">
-      <h1 class="text-xl font-semibold">Welcome back, <span class="font-normal">sign in to continue</span></h1>
-      <form class="mt-6" method="post">
-        {% csrf_token %}
-        <label for="email" class="block text-xs font-semibold text-gray-600 uppercase">Roll_No / Staff_Id</label>
-        {{ form.username }}
-        <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Password</label>
-        {{ form.password }}
-        <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-blue-500 shadow-lg rounded-sm focus:outline-none hover:bg-blue-600 hover:shadow-none">
-          Sign in
-        </button>
-        <p class="flex justify-between inline-block mt-4 text-xs text-gray-500 cursor-pointer hover:text-black">Note: If you login for first-time the password you enter will be saved as your password.</p>
-        {% if msg %}
-        {% if msg == 'user created Please login' %}
-        <h1 class="text-green-500 mt-3 text-center">{{msg}}</h1>
-        {% else %}
-        <h1 class="text-red-500 mt-3 text-center">{{msg}}</h1>
-        {% endif %}
-        {% endif %}
-      </form>
-    </div>
+  <div class="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12 rounded-sm">
+    <h1 class="text-xl font-semibold">Welcome back, <span class="font-normal">sign in to continue</span></h1>
+    <form class="mt-6" method="post">
+      {% csrf_token %}
+      <label for="email" class="block text-xs font-semibold text-gray-600 uppercase">Roll_No / Staff_Id</label>
+      {{ form.username }}
+      <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Password</label>
+      {{ form.password }}
+      <button type="submit"
+        class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-blue-500 shadow-lg rounded-sm focus:outline-none hover:bg-blue-600 hover:shadow-none">
+        Sign in
+      </button>
+      <p class="flex justify-between inline-block mt-4 text-xs text-gray-500 cursor-pointer hover:text-black">Note: If
+        you login for first-time the password you enter will be saved as your password.</p>
+      {% if msg %}
+      {% if msg == 'user created Please login' %}
+      <h1 class="text-green-500 mt-3 text-center">{{msg}}</h1>
+      {% else %}
+      <h1 class="text-red-500 mt-3 text-center">{{msg}}</h1>
+      {% endif %}
+      {% endif %}
+    </form>
   </div>
+</div>
 
 {% endblock %}

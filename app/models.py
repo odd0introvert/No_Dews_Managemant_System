@@ -64,13 +64,6 @@ class LAB (models.Model):
     Due_Date = models.DateField(default=None, null=True)
     is_Paid = models.BooleanField(default=False, null=True)
 
-class Dept (models.Model):
-    
-    Roll_No = models.CharField(max_length=20, default=None, null=True)
-    due = models.CharField(max_length=20, default=None, null=True)
-    Due_Date = models.DateField(default=None, null=True)
-    is_Paid = models.BooleanField(default=False, null=True)
-
 class Office (models.Model):
     
     Roll_No = models.CharField(max_length=20, default=None, null=True)

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from .forms import ConfirmRequest, LoginForm, MakeRequest, RemoveStudent, Search, UpdateStudent, Viewstudent, DeleteRequest
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Staff, Student, Requests
+from .models import User, Staff, Student, Requests, Library, LAB, Office, Hostel
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
@@ -63,7 +63,7 @@ def admin(request):
         return redirect('/admin')
 
 def staff(request):
-    if request.user.is_authenticated and request.user.is_staff:
+    if request.user.is_authenticated and request.user.is_staff: 
         form1 = Search(request.POST)
         form2 = RemoveStudent(request.POST)
         form3 = ConfirmRequest(request.POST)
@@ -72,8 +72,10 @@ def staff(request):
         staff = Staff.objects.get(Name=request.user.username)
         Reqs = Requests.objects.filter().values()
         students = Student.objects.filter(Dept=staff.Dept).values()
+        dues = None
         search = None
         view = None
+
         if request.method == 'POST':
             if form1.is_valid():
                 username1 = form1.cleaned_data.get('username1').upper()
@@ -122,16 +124,29 @@ def staff(request):
         if request.method == "POST":
             if form4.is_valid():
                 rollno = form4.cleaned_data.get('viewstd')
+
                 if Student.objects.filter(Roll_No=rollno).exists():
                     view = Student.objects.get(Roll_No=rollno)
+
+                if staff.Dept == 'library':
+                    dues = Library.objects.filter(Roll_No=rollno).values()
+                elif staff.Dept == 'lab':
+                    dues = LAB.objects.filter(Roll_No=rollno).values()
+                elif staff.Dept == 'office':
+                    dues = Office.objects.filter(Roll_No=rollno).values()
+                elif staff.Dept == 'hostel':
+                    dues = Hostel.objects.filter(Roll_No=rollno).values()
+                else:
+                    dues = None
 
         if request.method == "POST":
             if form5.is_valid():
                 rollno = form5.cleaned_data.get('decline')
+
                 if Requests.objects.filter(Roll_No=rollno).exists():
                     Requests.objects.filter(Roll_No=rollno).delete()
 
-        return render(request,'Staff_home.html', {'view':view,'search':search,'staff':staff, 'students':students, 'reqs':Reqs, 'form1':form1, 'form2':form2, 'form3':form3, 'form4':form4})
+        return render(request,'Staff_home.html', {'dues':dues, 'view':view,'search':search,'staff':staff, 'students':students, 'reqs':Reqs, 'form1':form1, 'form2':form2, 'form3':form3, 'form4':form4})
     else:
         return redirect('index')
 
@@ -183,45 +198,6 @@ def student(request):
                 return redirect('student')
 
         return render(request,'Student_home.html', {'student':student, 'req':Req, 'form1':form1, 'form2':form2})
-    else:
-        return redirect('index')
-
-def pdf(request):
-
-    if request.user.is_authenticated and request.user.is_student:
-
-        student = Student.objects.get(Roll_No=request.user.username)
-        # Create the HttpResponse object 
-        response = HttpResponse(content_type='application/pdf') 
-
-        p = canvas.Canvas(response)
-
-        # Write content on the PDF 
-        p.drawString(250, 700, "College Tc Generation") 
-        p.drawString(100, 650, "Name: " + student.Name)
-        p.drawString(100, 625, "Roll Number: " + student.Roll_No)
-        p.drawString(100, 600, "Register Number: " + student.Reg_No)
-        p.drawString(100, 575, "Date of birth: " + str(student.DOB))
-        p.drawString(100, 550, "Department: " + student.Dept)
-        p.drawString(100, 525, "Address : " + student.Address)
-        p.drawString(100, 500, "Phone : " + student.Phone)
-        p.drawString(100, 475, "Email : " + student.Email) 
-        p.drawString(100, 450, "Father Name: " + student.Father_Name)
-        p.drawString(100, 425, "Nationality : " + student.Nationality)
-        p.drawString(100, 400, "Religion  : " + student.Religion)
-        p.drawString(100, 375, "Caste/Community  : " + student.Caste_Community) 
-        p.drawString(100, 350, "Conduct : " + student.Conduct) 
-        p.drawString(100, 325, "Date of Admission: " + str(student.Date_Of_Admission))
-        p.drawString(100, 300, "Date of Leaving : " + str(student.Date_Of_Leaving))
-        p.drawString(100, 275, "Purpose of TC : " + student.Purpose_Of_TC)
-        p.drawString(400, 225, "HOD Signature")
-
-        # Close the PDF object. 
-        p.showPage() 
-        p.save() 
-
-        # Show the result to the user    
-        return response
     else:
         return redirect('index')
 
