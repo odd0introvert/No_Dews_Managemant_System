@@ -20,20 +20,12 @@ class LoginForm(forms.Form):
         )
     )
 
-class AddStudent(forms.Form):
+class Search(forms.Form):
     username1 = forms.CharField(
         widget= forms.TextInput(
             attrs={
                 "class":"w-full py-2 px-1 placeholder-indigo-400 outline-none placeholder-opacity-50",
                 "placeholder":"Roll Number"
-            }
-        )
-    )
-    conduct = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"w-full py-2 px-1 placeholder-indigo-400 outline-none placeholder-opacity-50",
-                "placeholder":"Conduct"
             }
         )
     )
@@ -162,7 +154,15 @@ class MakeRequest(forms.Form):
         )
     )
 
+class Viewstudent(forms.Form):
+    viewstd = forms.CharField(label="viewstd")
+
+class DeleteRequest(forms.Form):
+    decline = forms.CharField(label="decline")
+
 class ConfirmRequest(forms.Form):
     rollno = forms.CharField(label="rollno")
     dept = forms.CharField(label="dept")
+
+
     

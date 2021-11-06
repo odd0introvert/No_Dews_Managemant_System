@@ -27,11 +27,10 @@ class Student (models.Model):
     Conduct = models.CharField(max_length=10, default=None, null=True)
     Due_Department = models.BooleanField(default=False, null=True)
     Due_Library = models.BooleanField(default=False, null=True)
-    Due_PE = models.BooleanField(default=False, null=True)
-    Due_NSS = models.BooleanField(default=False, null=True)
     Due_Hostel = models.BooleanField(default=False, null=True)
     Due_Office = models.BooleanField(default=False, null=True)
     Due_Labs = models.BooleanField(default=False, null=True)
+    Applied = models.BooleanField(default=False, null=True)
 
         
 class Staff (models.Model):
@@ -46,8 +45,42 @@ class Requests (models.Model):
     Class = models.CharField(max_length=20, default=None, null=True)
     Dept = models.BooleanField(default=False, null=True)
     Library = models.BooleanField(default=False, null=True)
-    PE = models.BooleanField(default=False, null=True)
-    NSS = models.BooleanField(default=False, null=True)
     Hostel = models.BooleanField(default=False, null=True)
     Office = models.BooleanField(default=False, null=True)
     Labs = models.BooleanField(default=False, null=True)
+
+class Library (models.Model):
+
+    Roll_No = models.CharField(max_length=20, default=None, null=True)
+    Book = models.CharField(max_length=20, default=None, null=True)
+    Initial_Date = models.DateField(default=None, null=True)
+    Due_Date = models.DateField(default=None, null=True)
+    is_Returened = models.BooleanField(default=False, null=True)
+
+class LAB (models.Model):
+    
+    Roll_No = models.CharField(max_length=20, default=None, null=True)
+    Instrument = models.CharField(max_length=20, default=None, null=True)
+    Due_Date = models.DateField(default=None, null=True)
+    is_Paid = models.BooleanField(default=False, null=True)
+
+class Dept (models.Model):
+    
+    Roll_No = models.CharField(max_length=20, default=None, null=True)
+    due = models.CharField(max_length=20, default=None, null=True)
+    Due_Date = models.DateField(default=None, null=True)
+    is_Paid = models.BooleanField(default=False, null=True)
+
+class Office (models.Model):
+    
+    Roll_No = models.CharField(max_length=20, default=None, null=True)
+    Type = models.CharField(max_length=20, default=None, null=True)
+    Due_Date = models.DateField(default=None, null=True)
+    is_Paid = models.BooleanField(default=False, null=True)
+
+class Hostel (models.Model):
+    
+    Roll_No = models.CharField(max_length=20, default=None, null=True)
+    Fees = models.CharField(max_length=20, default=None, null=True)
+    Due_Date = models.DateField(default=None, null=True)
+    is_Paid = models.BooleanField(default=False, null=True)

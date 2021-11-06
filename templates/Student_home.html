@@ -5,316 +5,280 @@
 <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
     <div class="container max-w-screen-lg mx-auto">
 
-    {% if student.Purpose_Of_TC is None %}
+        {% if student.Purpose_Of_TC is None %}
 
-    <form action="" method="post">
+        <form action="" method="post">
 
-        {% csrf_token %}
+            {% csrf_token %}
 
-      <div>
-        <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
-        <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
-  
-        <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-          <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-            <div class="text-gray-600">
-              <p class="font-medium text-lg">Personal Details</p>
-              <p>Please fill out all the fields.</p>
-            </div>
-  
-                <div class="lg:col-span-2">
-                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                    <div class="md:col-span-5">
-                    <label for="full_name">Full Name</label>
-                    {{form1.name}}
+            <div>
+                <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
+                <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
+
+                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                        <div class="text-gray-600">
+                            <p class="font-medium text-lg">Personal Details</p>
+                            <p>Please fill out all the fields.</p>
+                        </div>
+
+                        <div class="lg:col-span-2">
+                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                <div class="md:col-span-5">
+                                    <label for="full_name">Full Name</label>
+                                    {{form1.name}}
+                                </div>
+
+                                <div class="md:col-span-5">
+                                    <label for="email">Email Address</label>
+                                    {{form1.email}}
+                                </div>
+
+                                <div class="md:col-span-3">
+                                    <label for="address">Address</label>
+                                    {{form1.address}}
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label for="city">Date-Of-Birth</label>
+                                    {{form1.dob}}
+                                </div>
+
+                                <div class="md:col-span-3">
+                                    <label for="address">Phone</label>
+                                    {{form1.phone}}
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label for="city">Father's Name</label>
+                                    {{form1.father}}
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label for="address">Nationality</label>
+                                    {{form1.nationality}}
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label for="city">Religion</label>
+                                    {{form1.religion}}
+                                </div>
+
+                                <div class="md:col-span-1">
+                                    <label for="city">Caste</label>
+                                    {{form1.caste}}
+                                </div>
+
+                                <div class="md:col-span-3">
+                                    <label for="city">Purpose of TC</label>
+                                    {{form1.purpose}}
+                                </div>
+
+                                <div class="md:col-span-1">
+                                    <label for="city">Admission Date</label>
+                                    {{form1.Admission_date}}
+                                </div>
+
+                                <div class="md:col-span-1">
+                                    <label for="city">Leaving Date</label>
+                                    {{form1.Leaving_date}}
+                                </div>
+
+
+                                <div class="md:col-span-5 text-right mt-5">
+                                    <div class="inline-flex items-end">
+                                        <button
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">Submit</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-    
-                    <div class="md:col-span-5">
-                    <label for="email">Email Address</label>
-                    {{form1.email}}
-                    </div>
-    
-                    <div class="md:col-span-3">
-                    <label for="address">Address</label>
-                    {{form1.address}}
-                    </div>
-    
-                    <div class="md:col-span-2">
-                    <label for="city">Date-Of-Birth</label>
-                    {{form1.dob}}
-                    </div>
-
-                    <div class="md:col-span-3">
-                    <label for="address">Phone</label>
-                    {{form1.phone}}
-                    </div>
-
-                    <div class="md:col-span-2">
-                    <label for="city">Father's Name</label>
-                    {{form1.father}}
-                    </div>
-
-                    <div class="md:col-span-2">
-                    <label for="address">Nationality</label>
-                    {{form1.nationality}}
-                    </div>
-
-                    <div class="md:col-span-2">
-                    <label for="city">Religion</label>
-                    {{form1.religion}}
-                    </div>
-
-                    <div class="md:col-span-1">
-                    <label for="city">Caste</label>
-                    {{form1.caste}}
-                    </div>
-
-                    <div class="md:col-span-3">
-                    <label for="city">Purpose of TC</label>
-                    {{form1.purpose}}
-                    </div>
-
-                    <div class="md:col-span-1">
-                    <label for="city">Admission Date</label>
-                    {{form1.Admission_date}}
-                    </div>
-
-                    <div class="md:col-span-1">
-                    <label for="city">Leaving Date</label>
-                    {{form1.Leaving_date}}
-                    </div>
-
-    
-                    <div class="md:col-span-5 text-right mt-5">
-                    <div class="inline-flex items-end">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm">Submit</button>
-                    </div>
-                    </div>
-  
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </form>
-
-    {% endif %}
-
-    {% if student.Due_Department is False or student.Due_Library is False or student.Due_PE is False or student.Due_NSS is False or student.Due_Hostel is False or student.Due_Office is False or student.Due_Labs is False %}
-
-    <form action="" method="post">
-
-        {% csrf_token %}
-
-    <div>
-    <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
-    <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
-
-    <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-        <div class="text-gray-600">
-            <p class="font-medium text-lg">Dews</p>
-            <p>Please fill out all the fields.</p>
-        </div>
-
-            <div class="lg:col-span-2">
-            <div class="grid gap-4 gap-y-5 text-sm grid-cols-1 md:grid-cols-3 ">
-
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">Department :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Department is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-                
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">Library :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Library is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">PE :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_PE is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">NSS :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_NSS is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">Hostel :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Hostel is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-                
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">Office :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Office is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-
-                <div class="md:col-span-2 flex items-center justify-left">
-                <label for="address" class="text-lg font-medium text-gray-600">Labs :</label>
-                </div>
-
-                <div class="md:col-span-1 flex items-center justify-center">
-                    {% if student.Due_Labs is False%}
-                    <span class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                    {% else %}
-                    <span class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                    {% endif %}
-                </div>
-
-                <div class="md:col-span-3 text-right flex items-center justify-center">
-                <div class="inline-flex items-end">
-                    {% if req.Roll_No == student.Roll_No %}
-                    <button class="bg-gray-500 text-white font-bold py-2 px-4 rounded">Request Sent</button>
-                    {% else %}
-                    {{form2.confirmation}}
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Request</button>
-                    {% endif %}
-                </div>
-                </div>
-
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-
-    </form>
-
-    {% endif %}
-
-    {% if student.Due_Department is True and student.Due_Library is True and student.Due_PE is True and student.Due_NSS is True and student.Due_Hostel is True and student.Due_Office is True and student.Due_Labs is True and student.Purpose_Of_TC is not None %}
-
-    <div>
-        <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
-        <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
-    
-        <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-            <div class="text-gray-600">
-                <p class="font-medium text-lg">Dews</p>
-                <p>Please fill out all the fields.</p>
-            </div>
-    
-                <div class="lg:col-span-2">
-                <div class="grid gap-4 gap-y-5 text-sm grid-cols-1 md:grid-cols-3 ">
-    
-                    <div class="md:col-span-2 flex items-center justify-left">
-                    <label for="address" class="text-lg font-medium text-gray-600">Rollno :</label>
-                    </div>
-    
-                    <div class="md:col-span-1 flex items-center justify-center">
-                        {{student.Roll_No}}
-                    </div>
-                    
-                    <div class="md:col-span-2 flex items-center justify-left">
-                    <label for="address" class="text-lg font-medium text-gray-600">Name :</label>
-                    </div>
-    
-                    <div class="md:col-span-1 flex items-center justify-center">
-                        {{student.Name}}
-                    </div>
-
-                    <div class="md:col-span-2 flex items-center justify-left">
-                    <label for="address" class="text-lg font-medium text-gray-600">Dob :</label>
-                    </div>
-    
-                    <div class="md:col-span-1 flex items-center justify-center">
-                        {{student.DOB}}
-                    </div>
-
-                    <div class="md:col-span-2 flex items-center justify-left">
-                    <label for="address" class="text-lg font-medium text-gray-600">Email :</label>
-                    </div>
-    
-                    <div class="md:col-span-1 flex items-center justify-center">
-                        {{student.Email}}
-                    </div>
-
-                    <div class="md:col-span-2 flex items-center justify-left">
-                    <label for="address" class="text-lg font-medium text-gray-600">Address :</label>
-                    </div>
-    
-                    <div class="md:col-span-1 flex items-center justify-center">
-                        {{student.Address}}
-                    </div>
-                
-                    <div class="md:col-span-2 flex items-center justify-left">
-                    <label for="address" class="text-lg font-medium text-gray-600">Phone :</label>
-                    </div>
-    
-                    <div class="md:col-span-1 flex items-center justify-center">
-                        {{student.Phone}}
-                    </div>
-    
-                    <div class="md:col-span-3 text-right flex items-center justify-center">
-                    <div class="inline-flex items-end">
-                        <a href="/pdf">
-                        <button class="bg-green-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-                            Generate Tc
-                        </button>
-                        </a>
-                    </div>
-                    </div>
-    
                 </div>
             </div>
+
+        </form>
+
+        {% endif %}
+
+        {% if student.Due_Department is False or student.Due_Library is False or student.Due_Hostel is False or student.Due_Office is False or student.Due_Labs is False %}
+
+        <form action="" method="post">
+
+            {% csrf_token %}
+
+            <div>
+                <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
+                <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
+
+                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                        <div class="text-gray-600">
+                            <p class="font-medium text-lg">Dews</p>
+                            <p>Please fill out all the fields.</p>
+                        </div>
+
+                        <div class="lg:col-span-2">
+                            <div class="grid gap-4 gap-y-5 text-sm grid-cols-1 md:grid-cols-3 ">
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Department :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Department is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Library :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Library is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">PE :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_PE is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">NSS :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_NSS is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Hostel :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Hostel is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Office :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Office is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Labs :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Labs is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-3 text-right flex items-center justify-center">
+                                    <div class="inline-flex items-end">
+                                        {% if req.Roll_No == student.Roll_No %}
+                                        <button class="bg-gray-500 text-white font-bold py-2 px-4 rounded">Request
+                                            Sent</button>
+                                        {% else %}
+                                        {{form2.confirmation}}
+                                        <button type="submit"
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Request</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        {% endif %}
+
+        {% if student.Due_Department is True and student.Due_Library is True and student.Due_Hostel is True and student.Due_Office is True and student.Due_Labs is True and student.Purpose_Of_TC is not None %}
+
+        <div>
+            <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
+            <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
+
+            <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                    <div class="text-gray-600">
+                        <p class="font-medium text-lg">Dews</p>
+                        <p>Please fill out all the fields.</p>
+                    </div>
+
+                    <div class="lg:col-span-2">
+                        <div class="grid gap-4 gap-y-5 text-sm grid-cols-1 md:grid-cols-3 ">
+
+                            <h1>Your Verification for tc has been completed</h1>
+                            <h1>Please visit the office room to collect your TC</h1>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
 
-    {% endif %}
+        {% endif %}
 
-      <a href="/logout" class="md:absolute bottom-0 right-0 p-4 float-right">
-        <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-            LOGOUT
-        </button>
+        <a href="/logout" class="md:absolute bottom-0 right-0 p-4 float-right">
+            <button
+                class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button">
+                LOGOUT
+            </button>
         </a>
 
     </div>
-  </div>
+</div>
 
 {% endblock %}

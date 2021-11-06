@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import ConfirmRequest, LoginForm, AddStudent, MakeRequest, RemoveStudent, UpdateStudent
+from .forms import ConfirmRequest, LoginForm, MakeRequest, RemoveStudent, Search, UpdateStudent, Viewstudent, DeleteRequest
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Staff, Student, Requests
 from django.contrib.auth.hashers import make_password
@@ -36,7 +36,7 @@ def signin(request):
             elif user is not None and user.is_student:
                 login(request, user)
                 return redirect('student')
-            elif Student.objects.filter(Roll_No=username).exists() :
+            elif Student.objects.filter(Roll_No=username.upper).exists() :
                 create = User(username=username, password=make_password(password), is_student = True)
                 create.save()
                 msg= 'user created Please login'
@@ -64,18 +64,24 @@ def admin(request):
 
 def staff(request):
     if request.user.is_authenticated and request.user.is_staff:
-        form1 = AddStudent(request.POST)
+        form1 = Search(request.POST)
         form2 = RemoveStudent(request.POST)
         form3 = ConfirmRequest(request.POST)
+        form4 = Viewstudent(request.POST)
+        form5 = DeleteRequest(request.POST)
         staff = Staff.objects.get(Name=request.user.username)
         Reqs = Requests.objects.filter().values()
         students = Student.objects.filter(Dept=staff.Dept).values()
+        search = None
+        view = None
         if request.method == 'POST':
             if form1.is_valid():
-                username1 = form1.cleaned_data.get('username1')
-                conduct = form1.cleaned_data.get('conduct')
-                add = Student(Roll_No=username1, Dept=staff.Dept, Conduct=conduct)
-                add.save()
+                username1 = form1.cleaned_data.get('username1').upper()
+                if Student.objects.filter(Roll_No=username1).exists():
+                    search = Student.objects.get(Roll_No=username1)
+                else :
+                    search = None
+
         if request.method == "POST":
             if form2.is_valid():
                 username2 = form2.cleaned_data.get('username2')
@@ -92,18 +98,17 @@ def staff(request):
                 if dept == "library":
                     std.Due_Library = True
                     req.Library = True
-                elif dept == "pe":
-                    std.Due_PE = True
-                    req.PE = True
-                elif dept == "nss":
-                    std.Due_NSS = True
-                    req.NSS = True
                 elif dept == "hostel":
                     std.Due_Hostel = True
                     req.Hostel = True
                 elif dept == "office":
                     std.Due_Office = True
                     req.Office = True
+                    subject = 'Due Verification Completed!'
+                    message = f'Hello, ' + std.Roll_No + ' your Due verification has been completed, Please collect your Tc in the office.'
+                    email_from = settings.EMAIL_HOST_USER
+                    recipient_list = [std.Email, ]
+                    send_mail( subject, message, email_from, recipient_list )
                 elif dept == "lab":
                     std.Due_Labs = True
                     req.Labs = True
@@ -114,7 +119,19 @@ def staff(request):
                 std.save()
                 req.save()
 
-        return render(request,'Staff_home.html', {'staff':staff, 'students':students, 'reqs':Reqs, 'form1':form1, 'form2':form2, 'form3':form3})
+        if request.method == "POST":
+            if form4.is_valid():
+                rollno = form4.cleaned_data.get('viewstd')
+                if Student.objects.filter(Roll_No=rollno).exists():
+                    view = Student.objects.get(Roll_No=rollno)
+
+        if request.method == "POST":
+            if form5.is_valid():
+                rollno = form5.cleaned_data.get('decline')
+                if Requests.objects.filter(Roll_No=rollno).exists():
+                    Requests.objects.filter(Roll_No=rollno).delete()
+
+        return render(request,'Staff_home.html', {'view':view,'search':search,'staff':staff, 'students':students, 'reqs':Reqs, 'form1':form1, 'form2':form2, 'form3':form3, 'form4':form4})
     else:
         return redirect('index')
 
@@ -147,19 +164,22 @@ def student(request):
                 student.save()
 
             if form2:
-                makereq = Requests(Roll_No = student.Roll_No, Class = student.Dept)
-                makereq.save()
-                staffs = Staff.objects.filter().values()
-                for staff in staffs:
-                    dept = staff.get('Dept')
-                    email = staff.get('Email')
-                    if dept == student.Dept or dept == 'library' or dept == 'PE' or dept == 'NSS' or dept == 'Hostel' or dept == 'Office' :
-                        subject = 'Dwe Verification Alert!'
-                        message = f'Hello, ' + student.Roll_No + ' requested for Dwe verification.'
-                        email_from = settings.EMAIL_HOST_USER
-                        recipient_list = [email, ]
-                        send_mail( subject, message, email_from, recipient_list )
-                        print('mail send to: ' + email)
+                if not Requests.objects.filter(Roll_No=student.Roll_No).exists():
+                    makereq = Requests(Roll_No = student.Roll_No, Class = student.Dept)
+                    makereq.save()
+                    student.applied = True
+                    student.save()
+                    staffs = Staff.objects.filter().values()
+                    for staff in staffs:
+                        dept = staff.get('Dept')
+                        email = staff.get('Email')
+                        if dept == student.Dept or dept == 'library' or dept == 'PE' or dept == 'NSS' or dept == 'Hostel' or dept == 'Office' :
+                            subject = 'Dwe Verification Alert!'
+                            message = f'Hello, ' + student.Roll_No + ' requested for Dwe verification.'
+                            email_from = settings.EMAIL_HOST_USER
+                            recipient_list = [email, ]
+                            send_mail( subject, message, email_from, recipient_list )
+                            print('mail send to: ' + email)
                 return redirect('student')
 
         return render(request,'Student_home.html', {'student':student, 'req':Req, 'form1':form1, 'form2':form2})

@@ -2,6 +2,64 @@
 
 {% block content %}
 
+{% if view %}
+
+<div id="modal_overlay"
+    class="hidden absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0">
+
+    
+    <div id="modal"
+        class="pacity-0 transform -translate-y-full scale-150  relative w-10/12 md:w-1/2 h-1/2 md:h-3/4 bg-white rounded shadow-lg transition-opacity transition-transform duration-300">
+
+        
+        <button onclick="openModal(false)"
+            class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white">
+            X
+        </button>
+
+        
+        <div class="px-4 py-3 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-600">{{view.Roll_No}}</h2>
+        </div>
+
+       
+        <div class="w-full p-3">
+            <p>Roll NO : {{view.Roll_No}}</p>
+            <p>Register No : {{view.Reg_No}}</p>
+            <p>Name : {{view.Name}}</p>
+            <p>Date Of Birth : {{view.DOB}}</p>
+            <p>Phone Number : {{view.Phone}}</p>
+            <p>Department : {{view.Dept}}</p>
+            <p>Email : {{view.Email}}</p>
+            <p>Father Name : {{view.Father_Name}}</p>
+            <p>Address : {{view.Address}}</p>
+            <p>Nationality : {{view.Nationality}}</p>
+            <p>Religion : {{view.Religion}}</p>
+            <p>Community : {{view.Caste_Community}}</p>
+        </div>
+
+        <form action="" method="post">
+
+            {% csrf_token %}
+
+        <input type="hidden" name="rollno" id="rollno" value={{view.Roll_No}}>
+        <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+
+       
+        <div class="absolute bottom-0 left-0 px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
+            <button onclick="openModal(false)" type="submit" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">Accept</button>
+        </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="decline" id="decline" value={{view.Roll_No}}>
+            <button onclick="openModal(false)" type="submit" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none">Decline</button>
+        </div>
+    </form>
+    </div>
+
+</div>
+
+{% endif %}
 
 <div class="grid grid-cols-4 h-screen">
 
@@ -20,29 +78,8 @@
 
         <div class=" h-2/6 grid grid-cols-2 bg-gray-100">
 
-            <form action="" method="post" class="w-3/4 bg-white px-3 py-5 rounded shadow-lg m-auto">
-                {% csrf_token %}
-                <div class="flex flex-col space-y-3">
-                    <div class="flex items-center bg-white border border-gray-100 rounded px-2" >
+            {% if staff.Dept != "library" and staff.Dept != "lab" and staff.Dept != "office" and staff.Dept != "hostel" %}
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 text-gray-500 m-0 mr-1">
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                        </svg>
-
-                        {{ form1.username1 }}
-
-                        {{ form1.conduct }}
-                    
-                    </div>
-
-                    <button type="submit" class="text-white bg-indigo-500 px-4 py-2 rounded-sm" >
-                        Add Student
-                    </button>
-                    
-                </div>
-            </form>
 
             <form action="" method="post" class="w-3/4 bg-white px-3 py-5 rounded shadow-lg m-auto">
                 {% csrf_token %}
@@ -66,6 +103,33 @@
                 </div>
             </form>
 
+            {% else %}
+
+            <form action="" method="post" class="w-3/4 bg-white px-3 py-5 rounded shadow-lg m-auto">
+                {% csrf_token %}
+                <div class="flex flex-col space-y-3">
+                    <div class="flex items-center bg-white border border-gray-100 rounded px-2" >
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 text-gray-500 m-0 mr-1">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                        </svg>
+
+                        {{ form1.username1 }}
+                    
+                    </div>
+
+                    <button type="submit" class="text-white bg-blue-500 px-4 py-2 rounded-sm" >
+                        Search
+                    </button>
+                    
+                </div>
+            </form>
+
+            {% endif %}
+            
+
         </div>
 
         <div class=" h-3/6 overflow-y-auto">
@@ -87,6 +151,8 @@
                             Phone</th>
                     </tr>
                 </thead>
+
+                {% if staff.Dept != "library" and staff.Dept != "lab" and staff.Dept != "office" and staff.Dept != "hostel" %}
 
                 <tbody class="bg-white w-full">
 
@@ -123,19 +189,94 @@
                     {% endfor %}
 
                 </tbody>
+
+                {% else %}
+
+                <tbody class="bg-white w-full">
+
+                    {% if search %}
+
+                        <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div class="flex items-center">
+
+                                    <div>
+                                        <div class="text-sm leading-5 font-medium text-gray-900">{{search.Name}}
+                                        </div>
+                                        <div class="text-sm leading-5 text-gray-500">{{search.Email}}</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-sm leading-5 text-gray-900">{{search.Roll_No}}</div>
+                                <div class="text-sm leading-5 text-gray-500">{{search.Reg_No}}</div>
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{search.Dept}}</span>
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm text-gray-500">
+                                {{search.Phone}}
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+                {% endif %}
+
             </table>
          
         </div>
     
     </div>
 
-    <div class="col-span-1 h-auto overflow-y-auto p-5 bg-gray-100">
+    <div class="col-span-1 h-auto bg-gray-100">
+
+        <div class="h-1/2 overflow-y-auto p-5">
         
         {% for req in reqs %}
-        
+     
         {% if staff.Dept == "library" %}
 
-        {% if req.Library == False %}
+        {% if req.Library == False and req.Labs == True and req.Dept == True %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="flex flex-col ml-3">
+                            <div class="font-medium leading-none">{{req.Roll_No}}</div>
+                            <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="viewstd" id="viewstd" value={{req.Roll_No}}>
+                    
+                    <button type="submit" class="flex-no-shrink bg-yellow-400 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-yellow-400 text-white rounded-sm">View</button>
+                </div>
+            </div>
+
+        </form>
+
+        {% endif %}
+
+        {% elif  staff.Dept == "hostel" and req.Labs == True and req.Dept == True and req.Library == True %}
+
+        {% if req.Hostel == False and re %}
 
         <form action="" method="post">
             {% csrf_token %}
@@ -154,10 +295,9 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                <input type="hidden" name="viewstd" id="viewstd" value={{req.Roll_No}}>
                 
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+                <button type="submit"  class="flex-no-shrink bg-yellow-400 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-yellow-400 text-white rounded-sm">View</button>
             </div>
         </div>
 
@@ -165,103 +305,7 @@
 
         {% endif %}
 
-        {% elif  staff.Dept == "pe" %}
-
-        {% if req.PE == False %}
-
-        <form action="" method="post">
-            {% csrf_token %}
-        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <div class="flex flex-col ml-3">
-                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
-                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
-                    </div>
-                </div>
-
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
-                
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
-            </div>
-        </div>
-
-        </form>
-
-        {% endif %}
-
-        {% elif  staff.Dept == "nss" %}
-
-        {% if req.NSS == False %}
-
-        <form action="" method="post">
-            {% csrf_token %}
-        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <div class="flex flex-col ml-3">
-                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
-                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
-                    </div>
-                </div>
-
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
-                
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
-            </div>
-        </div>
-
-        </form>
-
-        {% endif %}
-
-        {% elif  staff.Dept == "hostel" %}
-
-        {% if req.Hostel == False %}
-
-        <form action="" method="post">
-            {% csrf_token %}
-        <div class="flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-sm mb-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <div class="flex flex-col ml-3">
-                        <div class="font-medium leading-none">{{req.Roll_No}}</div>
-                        <p class="text-sm text-gray-600 leading-none mt-1">Is requested for the verification</p>
-                    </div>
-                </div>
-
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
-                
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
-            </div>
-        </div>
-
-        </form>
-
-        {% endif %}
-
-        {% elif  staff.Dept == "office" %}
+        {% elif  staff.Dept == "office" and req.Labs == True and req.Dept == True and req.Library == True and req.Hostel == True %}
 
         {% if req.Office == False %}
 
@@ -282,10 +326,9 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                <input type="hidden" name="viewstd" id="viewstd" value={{req.Roll_No}}>
                 
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+                <button type="submit"  class="flex-no-shrink bg-yellow-400 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-yellow-400 text-white rounded-sm">View</button>
             </div>
         </div>
 
@@ -295,7 +338,7 @@
 
         {% elif  staff.Dept == "labs" %}
 
-        {% if req.Labs == False %}
+        {% if req.Labs == False and req.Dept == True %}
 
         <form action="" method="post">
             {% csrf_token %}
@@ -314,10 +357,9 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                <input type="hidden" name="viewstd" id="viewstd" value={{req.Roll_No}}>
                 
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+                <button type="submit"  class="flex-no-shrink bg-yellow-400 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-yellow-400 text-white rounded-sm">View</button>
             </div>
         </div>
 
@@ -344,10 +386,9 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="rollno" id="rollno" value={{req.Roll_No}}>
-                <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
+                <input type="hidden" name="viewstd" id="viewstd" value={{req.Roll_No}}>
                 
-                <button type="submit"  class="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-sm">Accept</button>
+                <button type="submit"  class="flex-no-shrink bg-yellow-400 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-yellow-400 text-white rounded-sm">View</button>
             </div>
         </div>
 
@@ -356,9 +397,75 @@
         {% endif %}
 
         {% endfor %}
+
+        </div>
+
+        <div class="h-1/2 overflow-y-auto p-5">
+
+            {% for student in students %}
+
+            <div class="flex items-center p-4 bg-white border-2 mb-5 border-gray-200 rounded-sm shadow-sm dark:bg-gray-800">
+            
+            {% if student.Applied %}
+
+            <div class="p-3 mr-4 bg-green-500 text-white rounded-full">
+                
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+                
+            </div>
+
+            {% else %}
+
+            <div class="p-3 mr-4 bg-yellow-500 text-white rounded-full">
+                
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            </div>
+            
+            {% endif %}
+
+            <div>
+                <p class="mb-2 text-sm font-medium text-gray-900">{{student.Name}}</p>
+                <p class="text-sm font-normal text-gray-800">Roll Number : {{student.Roll_No}}</p>
+            </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
         
     </div>
 
 </div>
+
+<script>
+const modal_overlay = document.querySelector('#modal_overlay');
+const modal = document.querySelector('#modal');
+
+function openModal (value){
+    const modalCl = modal.classList
+    const overlayCl = modal_overlay
+
+    if(value){
+    overlayCl.classList.remove('hidden')
+    setTimeout(() => {
+        modalCl.remove('opacity-0')
+        modalCl.remove('-translate-y-full')
+        modalCl.remove('scale-150')
+    }, 100);
+    } else {
+    modalCl.add('-translate-y-full')
+    setTimeout(() => {
+        modalCl.add('opacity-0')
+        modalCl.add('scale-150')
+    }, 100);
+    setTimeout(() => overlayCl.classList.add('hidden'), 300);
+    }
+}
+openModal(true)
+</script>
 
 {% endblock %}
