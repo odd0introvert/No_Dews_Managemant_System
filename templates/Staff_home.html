@@ -23,7 +23,7 @@
         </div>
 
 
-        <div class="w-full p-3 h-3/4 overflow-y-auto bg-gray-100">
+        <div class="w-full p-3 h-5/6 overflow-y-auto bg-gray-100">
 
             <h1 class="text-lg text-center p-3 bg-yellow-100"> Student Data</h1>
 
@@ -289,15 +289,16 @@
             <input type="hidden" name="dept" id="dept" value={{staff.Dept}}>
         
         
-            <div class="absolute bottom-0 left-0 px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
+            <div class="absolute bottom-0 bg-white left-0 px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
                 <button onclick="openModal(false)" type="submit"
                     class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">Accept</button>
-        </form>
-        <form action="" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="decline" id="decline" value={{view.Roll_No}}>
-            <button onclick="openModal(false)" type="submit"
-                class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none">Decline</button>
+                </form>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="decline" id="decline" value={{view.Roll_No}}>
+                    <button onclick="openModal(false)" type="submit"
+                        class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none">Decline</button>
+            
             </div>
         </form>
 </div>

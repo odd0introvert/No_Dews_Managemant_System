@@ -110,12 +110,12 @@
 
             <div>
                 <h2 class="font-semibold text-xl text-gray-600">Welcome {{student.Roll_No}}</h2>
-                <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p>
+                <p class="text-gray-500 mb-6">Please fill out the form carefully.</p>
 
                 <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                         <div class="text-gray-600">
-                            <p class="font-medium text-lg">Dews</p>
+                            <p class="font-medium text-lg">Dues</p>
                             <p>Please fill out all the fields.</p>
                         </div>
 
@@ -129,80 +129,10 @@
                                 <div class="md:col-span-1 flex items-center justify-center">
                                     {% if student.Due_Department is False%}
                                     <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Pending...</span>
                                     {% else %}
                                     <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="md:col-span-2 flex items-center justify-left">
-                                    <label for="address" class="text-lg font-medium text-gray-600">Library :</label>
-                                </div>
-
-                                <div class="md:col-span-1 flex items-center justify-center">
-                                    {% if student.Due_Library is False%}
-                                    <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                                    {% else %}
-                                    <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="md:col-span-2 flex items-center justify-left">
-                                    <label for="address" class="text-lg font-medium text-gray-600">PE :</label>
-                                </div>
-
-                                <div class="md:col-span-1 flex items-center justify-center">
-                                    {% if student.Due_PE is False%}
-                                    <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                                    {% else %}
-                                    <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="md:col-span-2 flex items-center justify-left">
-                                    <label for="address" class="text-lg font-medium text-gray-600">NSS :</label>
-                                </div>
-
-                                <div class="md:col-span-1 flex items-center justify-center">
-                                    {% if student.Due_NSS is False%}
-                                    <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                                    {% else %}
-                                    <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="md:col-span-2 flex items-center justify-left">
-                                    <label for="address" class="text-lg font-medium text-gray-600">Hostel :</label>
-                                </div>
-
-                                <div class="md:col-span-1 flex items-center justify-center">
-                                    {% if student.Due_Hostel is False%}
-                                    <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                                    {% else %}
-                                    <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="md:col-span-2 flex items-center justify-left">
-                                    <label for="address" class="text-lg font-medium text-gray-600">Office :</label>
-                                </div>
-
-                                <div class="md:col-span-1 flex items-center justify-center">
-                                    {% if student.Due_Office is False%}
-                                    <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
-                                    {% else %}
-                                    <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Done</span>
                                     {% endif %}
                                 </div>
 
@@ -213,12 +143,56 @@
                                 <div class="md:col-span-1 flex items-center justify-center">
                                     {% if student.Due_Labs is False%}
                                     <span
-                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Overdue</span>
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Pending...</span>
                                     {% else %}
                                     <span
-                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Paid</span>
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Done</span>
                                     {% endif %}
                                 </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Library :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Library is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Pending...</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Done</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Hostel :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Hostel is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Pending...</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Done</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="md:col-span-2 flex items-center justify-left">
+                                    <label for="address" class="text-lg font-medium text-gray-600">Office :</label>
+                                </div>
+
+                                <div class="md:col-span-1 flex items-center justify-center">
+                                    {% if student.Due_Office is False%}
+                                    <span
+                                        class="text-sm font-medium bg-red-100 py-1 px-2 rounded text-red-500 align-middle">Pending...</span>
+                                    {% else %}
+                                    <span
+                                        class="text-sm font-medium bg-green-100 py-1 px-2 rounded text-green-500 align-middle">Done</span>
+                                    {% endif %}
+                                </div>
+
+                                
 
                                 <div class="md:col-span-3 text-right flex items-center justify-center">
                                     <div class="inline-flex items-end">
@@ -259,8 +233,8 @@
                     <div class="lg:col-span-2">
                         <div class="grid gap-4 gap-y-5 text-sm grid-cols-1 md:grid-cols-3 ">
 
-                            <h1>Your Verification for tc has been completed</h1>
-                            <h1>Please visit the office room to collect your TC</h1>
+                            <h1>Your Verification for tc has been completed <br><br> Please visit the office room to collect your TC</h1>
+                            <h1></h1>
 
                         </div>
                     </div>
