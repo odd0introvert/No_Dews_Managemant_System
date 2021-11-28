@@ -1,168 +1,29 @@
 from django import forms
-from .models import User
-from django.contrib.auth.forms import UserCreationForm
+from app.models import Staff
 
-class LoginForm(forms.Form):
-    username = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"rounded-sm block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner",
-                "placeholder":"Roll Number"
-            }
-        )
-    )
-    password = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={
-                "class":"rounded-sm block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner",
-                "placeholder":"******"
-            }
-        )
-    )
+staffs = Staff.objects.filter().values()
 
-class Search(forms.Form):
-    username1 = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"w-full py-2 px-1 placeholder-indigo-400 outline-none placeholder-opacity-50",
-                "placeholder":"Roll Number"
-            }
-        )
-    )
+StaffDept = tuple()
 
-class RemoveStudent(forms.Form):
-    username2 = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"w-full py-2 px-1 placeholder-indigo-400 outline-none placeholder-opacity-50",
-                "placeholder":"Roll Number"
-            }
-        )
-    )
+for staff in staffs:
+    StaffDept += ((staff["Dept"],staff["Dept"]),)
 
-class UpdateStudent(forms.Form):
-    name = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":"Someone@gmail.com"
-            }
-        )
-    )
+StaffYear =(
+    ("1", "1St year"),
+    ("2", "2nd year"),
+    ("3", "3rd year"),
+    ("4", "4th year")   
+)
 
-    address = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-    dob = forms.DateField(
-        widget=forms.DateInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "type":"date",
-            }
-        )
-    )
+class StaffLogin(forms.Form):
+    Department = forms.ChoiceField(widget=forms.Select(attrs={'class':'form-select select2-hidden-accessible','name':'staffdept'}),choices=StaffDept)
+    Year = forms.ChoiceField(widget=forms.Select(attrs={'class':'form-select select2-hidden-accessible','name':'staffdept'}),choices=StaffYear)
+    Password = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control form-control-lg','name':'staffpassword','id':'password','placeholder':'Enter your password','type':'password'}))
 
-    phone = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-    father = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
+class StudentLogin(forms.Form):
+    Register_Number = forms.CharField(widget=forms.TextInput(attrs={'name':'studentregno', 'required':'required', 'type':'text', 'class':'form-control', 'id':'studentregno', 'placeholder':'Enter your Register number'}))
+    Password = forms.CharField(widget=forms.TextInput(attrs={'type':'date', 'class':'form-control form-control-lg', 'id':'password', 'placeholder':'Enter your passcode'}))
 
-    nationality = forms.CharField(
-        widget= forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-    religion = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-
-    caste = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-
-    purpose = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "placeholder":""
-            }
-        )
-    )
-
-    Admission_date = forms.DateField(
-        widget=forms.DateInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "type":"date",
-            }
-        )
-    )
-
-    Leaving_date = forms.DateField(
-        widget=forms.DateInput(
-            attrs={
-                "class":"h-10 border mt-1 rounded px-4 w-full bg-gray-50",
-                "type":"date",
-            }
-        )
-    )
-
-class MakeRequest(forms.Form):
-    confirmation = forms.BooleanField(
-        widget= forms.CheckboxInput(
-            attrs={
-                "type":"hidden"
-            }
-        )
-    )
-
-class Viewstudent(forms.Form):
-    viewstd = forms.CharField(label="viewstd")
-
-class DeleteRequest(forms.Form):
-    decline = forms.CharField(label="decline")
-
-class ConfirmRequest(forms.Form):
-    rollno = forms.CharField(label="rollno")
-    dept = forms.CharField(label="dept")
-
-
-    
+class AdminLogin(forms.Form):
+    Username = forms.CharField(widget=forms.TextInput(attrs={'name':'studentregno', 'required':'required', 'type':'text', 'class':'form-control', 'id':'studentregno', 'placeholder':'Enter your Register number'}))
+    Password = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control form-control-lg','name':'staffpassword','id':'password','placeholder':'Enter your password','type':'password'}))

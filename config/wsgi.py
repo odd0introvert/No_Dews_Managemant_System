@@ -1,5 +1,5 @@
 """
-WSGI config for no_dews_management project.
+WSGI config for tc_management project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

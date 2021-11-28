@@ -1,0 +1,472 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="modal fade" id="DueForm" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Due</h5><a href="#" class="close" data-dismiss="modal"
+                    aria-label="Close"><em class="icon ni ni-cross"></em></a>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="AddDue" class="form-validate is-alter" novalidate="novalidate">
+
+                    <div class="form-group"><label class="form-label" for="AddDueRegno">Register Number</label>
+                        <div class="form-control-wrap"><input type="text" class="form-control" name="dueregno" id="AddDueRegno"
+                                required=""></div>
+                    </div>
+                    
+                    <div class="form-group"><label class="form-label" for="AddDueDept">Branch</label>
+                        <div class="form-control-wrap">
+                            <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
+                                {% if staff.Dept == "PG_Lab" %}
+                                <option value="PG_Lab" >PG Lab</option>
+                                {% elif staff.Dept == "UG_Lab" %}
+                                <option value="UG_Lab" >UG Lab</option>
+                                {% elif staff.Dept == "Library" %}
+                                <option value="Library" >Library</option>
+                                {% elif staff.Dept == "Hostel" %}
+                                <option value="Hostel" >Hostel</option>
+                                {% elif staff.Dept == "Office" %}
+                                <option value="Office" >Office</option>
+                                {% else %}
+                                <option value="Library" >Library</option>
+                                <option value="UG_Lab" >UG Lab</option>
+                                <option value="PG_Lab" >PG Lab</option>
+                                <option value="Hostel" >Hostel</option>
+                                <option value="Office" >Office</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label class="form-label" for="AddDueYear">Semester</label>
+                        <div class="form-control-wrap"><select class="form-select select2-hidden-accessible"
+                            aria-hidden="true" name="duesem" id="AddDueYear" >
+                            <option value="1" >1</option>
+                            <option value="2" >2</option>
+                            <option value="3" >3</option>
+                            <option value="4" >4</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="form-group"><label class="form-label" for="AddDueStatus">Semester</label>
+                        <div class="form-control-wrap"><select class="form-select select2-hidden-accessible"
+                            aria-hidden="true" name="duesem" id="AddDueStatus" >
+                            <option value="True" >Yes</option>
+                            <option value="False" >No</option>
+                        </select>
+                    </div>
+                    </div>
+                    
+                    <div class="form-group"><button type="submit" class="btn btn-lg btn-primary">Add</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="modalTabs" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content"><a href="#" class="close" data-dismiss="modal"><em
+                    class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h4 class="title" id="modelregnotitle">...</h4>
+                <ul class="nk-nav nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tabItem1">Details</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tabItem2">Dues</a></li>
+                </ul>
+                <div class="tab-content is-scrollable h-325px">
+                    <div class="tab-pane active" id="tabItem1">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Register Number</td>
+                                    <td id="modelregno">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Roll Number</td>
+                                    <td id="modelrollno">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td id="modelname">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of birth</td>
+                                    <td id="modeldob">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Department</td>
+                                    <td id="modeldept">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Year</td>
+                                    <td id="modelyear">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td id="modelemail">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Fathers Name</td>
+                                    <td id="modelfather">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td id="modeladdress">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Community</td>
+                                    <td id="modelcommunity">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Religion</td>
+                                    <td id="modelreligion">Hindu</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Admission</td>
+                                    <td id="modeldoa">...</td>
+                                </tr>
+                                <tr>
+                                    <td>Conduct</td>
+                                    <td id="modelconduct">...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane is-scrollable h-325px" id="tabItem2">
+                        <div class="nk-tb-list nk-tb-orders" id="modeldue">
+                            <div class="nk-tb-item nk-tb-head">
+                                <div class="nk-tb-col"><span>Department</span></div>
+                               
+                                <div class="nk-tb-col tb-col-md"><span>Status</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="nk-content">
+    <div class="container wide-xl">
+        <div class="nk-content-body">
+            <div class="nk-content-wrap">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">{{staff.Dept}}</h3>
+                            <div class="nk-block-des text-soft">
+                                <p>Welcome to {{staff.Dept}} Department year {{staff.Year}} Dashboard.</p>
+                            </div>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle"><a href="#"
+                                    class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em
+                                        class="icon ni ni-more-v"></em></a>
+                                <div class="toggle-expand-content" data-content="pageMenu">
+                                    <ul class="nk-block-tools g-3">
+
+                                        <li class="nk-block-tools-opt"><a href="/logout" class="btn btn-danger"><em
+                                                    class="icon ni ni-reports"></em><span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block" id="nk-block">
+                    <div class="row g-gs">
+
+                        {% if staff.Dept == 'PG_Lab' or staff.Dept == 'UG_Lab' or staff.Dept == 'Library' or staff.Dept == 'Hostel' or staff.Dept == 'Office' %}
+
+                        <div class="col-12">
+                            <div class="card card-bordered card-stretch">
+                                <div class="card-inner-group">
+                                    <div class="card-inner position-relative card-tools-toggle">
+                                        <div class="card-title-group">
+                                            <div class="card-tools">
+                                                <div class="form-inline flex-nowrap gx-3">
+                                                    <div class="card-title-group">
+                                                        <div class="card-title">
+                                                            <h6 class="title"><span class="mr-2">Search Students</span> </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-tools mr-n1" data-toggle="collapse" href="#filedown" aria-expanded="false">
+                                                <a href="#"  class="btn btn-icon search-toggle toggle-search" data-target="search"><em
+                                                        class="icon ni ni-search"></em></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-search search-wrap" data-search="search">
+                                            <div class="card-body">
+                                                <form id="search">
+                                                <div class="search-content"><a href="#" class="search-back btn btn-icon toggle-search"
+                                                        data-target="search"><em class="icon ni ni-arrow-left"></em></a><input id="searchquery" type="text"
+                                                        class="form-control border-transparent form-focus-none"
+                                                        placeholder="Search by user or email"></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-inner p-0">
+                                        <div class="nk-tb-list nk-tb-orders">
+
+                                            
+
+                                            <div class="nk-tb-item nk-tb-head collapse" id="filedown">
+                                                <div class="nk-tb-col"><span>Register No.</span></div>
+                                                <div class="nk-tb-col tb-col-sm"><span>Student Name</span></div>
+                                                <div class="nk-tb-col tb-col-md"><span>Roll Number</span></div>
+                                                <div class="nk-tb-col tb-col-md"><span>Email</span></div>
+                                                <div class="nk-tb-col tb-col-lg"><span>Phone</span></div>
+                                            </div>
+    
+                                            <div class="nk-tb-item collapse" id="filedown">
+                                                <div class="nk-tb-col"><span class="tb-lead"><a href="#" id="searchregno">...</a></span>
+                                                </div>
+                                                <div class="nk-tb-col tb-col-sm">
+                                                    <div class="user-card">
+                                                        <div class="user-avatar user-avatar-sm bg-light" id="searchfirst"><span>.</span>
+                                                        </div>
+                                                        <div class="user-name"><span class="tb-lead" id="searchname">...</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="nk-tb-col"><span class="tb-lead"><a href="#" id="searchrollno">...</a></span>
+                                                </div>
+                                                <div class="nk-tb-col tb-col-md"><span class="tb-sub" id="searchemail">...</span></div>
+                                                <div class="nk-tb-col tb-col-lg"><span class="tb-sub text-primary" id="searchphone">...</span></div>
+    
+                                            </div>
+                                            
+    
+                                        </div>
+                                    </div>
+                        
+                                </div>
+                            </div>
+                        </div>
+
+                        {% else %}
+
+                        <div class="col-12">
+                            <div class="card card-bordered card-full">
+
+                                <div class="card-inner">
+                                    <div class="card-title-group">
+                                        <div class="card-title">
+                                            <h6 class="title"><span class="mr-2">Students Information</span> </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-inner p-0 border-top">
+                                    <div class="nk-tb-list nk-tb-orders">
+                                        <div class="nk-tb-item nk-tb-head">
+                                            <div class="nk-tb-col"><span>Register No.</span></div>
+                                            <div class="nk-tb-col tb-col-sm"><span>Student Name</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span>Roll Number</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span>Email</span></div>
+                                            <div class="nk-tb-col tb-col-lg"><span>Phone</span></div>
+                                            <div class="nk-tb-col"><span>Tc Application</span></div>
+
+                                        </div>
+
+                                        {% for student in deptstudents %}
+
+                                        <div class="nk-tb-item">
+                                            <div class="nk-tb-col"><span class="tb-lead"><a href="#">#{{student.Reg_No}}</a></span>
+                                            </div>
+                                            <div class="nk-tb-col tb-col-sm">
+                                                <div class="user-card">
+                                                    <div class="user-avatar user-avatar-sm bg-light"><span>{{student.First}}</span>
+                                                    </div>
+                                                    <div class="user-name"><span class="tb-lead">{{student.Name}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nk-tb-col"><span class="tb-lead"><a href="#">{{student.Roll_No}}</a></span>
+                                            </div>
+                                            <div class="nk-tb-col tb-col-md"><span
+                                                    class="tb-sub">{{student.Email}}</span></div>
+                                            <div class="nk-tb-col tb-col-lg"><span
+                                                    class="tb-sub text-primary">{{student.Phone}}</span></div>
+                                            <div class="nk-tb-col">{% if student.Applied %}
+                                                <span class="badge badge-dot badge-success">Applied</span>
+                                                {% else %}
+                                                <span class="badge badge-dot badge-warning">Not Applied</span>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {% endif %}
+
+                        <div class="col-lg-6" id="Dues">
+                            <div class="card card-bordered card-full">
+                                <div class="card-inner border-bottom">
+                                    <div class="card-title-group">
+                                        <div class="card-title">
+                                            <h6 class="title">Dues</h6>
+                                        </div>
+                                        <div class="card-tools">
+                                            <ul class="card-tools-nav">
+                                                <li data-toggle="modal" data-target="#DueForm"><em class="ti ti-plus"></em></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="nk-activity is-scrollable h-325px">
+                                    
+                                    {% for due in dues %}
+
+                                    {% if staff.Dept == 'Library' and due.Dept == 'Library'%}
+
+                                    <li class="nk-support-item">
+                                        <div class="user-avatar"><div class="nk-activity-media user-avatar bg-light" >{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.First}}{% endif %}{% endfor %}</div></div>
+                                        <div class="nk-support-content">
+                                            <div class="title"><span>{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.Name}}{% endif %}{% endfor %}</span>
+                                                {% if due.is_Done %}<span class="badge badge-dot badge-dot-xs badge-success ml-1">Cleared</span>{% else %}<span class="badge badge-dot badge-dot-xs badge-warning ml-1">Pending</span>{% endif %}
+                                                <a href="#" onclick="removedue('{{due.Reg_No}}','{{due.Dept}}')" class="btn btn-dim btn-danger">Remove</a>
+                                            </div>
+                                            <p>{{due.Dept}}</p>
+                                            <span class="time">{{due.Reg_No}}</span>
+                                        </div>
+                                    </li>
+
+                                    {% elif staff.Dept == 'PG_Lab' and due.Dept == 'PG_Lab'%}
+
+                                    <li class="nk-support-item">
+                                        <div class="user-avatar"><div class="nk-activity-media user-avatar bg-light" >{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.First}}{% endif %}{% endfor %}</div></div>
+                                        <div class="nk-support-content">
+                                            <div class="title"><span>{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.Name}}{% endif %}{% endfor %}</span>
+                                                {% if due.is_Done %}<span class="badge badge-dot badge-dot-xs badge-success ml-1">Cleared</span>{% else %}<span class="badge badge-dot badge-dot-xs badge-warning ml-1">Pending</span>{% endif %}
+                                                <a href="#" onclick="removedue('{{due.Reg_No}}','{{due.Dept}}')" class="btn btn-dim btn-danger">Remove</a>
+                                            </div>
+                                            <p>{{due.Dept}}</p>
+                                            <span class="time">{{due.Reg_No}}</span>
+                                        </div>
+                                    </li>
+
+                                    {% elif staff.Dept == 'UG_Lab' and due.Dept == 'UG_Lab'%}
+
+                                    <li class="nk-support-item">
+                                        <div class="user-avatar"><div class="nk-activity-media user-avatar bg-light" >{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.First}}{% endif %}{% endfor %}</div></div>
+                                        <div class="nk-support-content">
+                                            <div class="title"><span>{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.Name}}{% endif %}{% endfor %}</span>
+                                                {% if due.is_Done %}<span class="badge badge-dot badge-dot-xs badge-success ml-1">Cleared</span>{% else %}<span class="badge badge-dot badge-dot-xs badge-warning ml-1">Pending</span>{% endif %}
+                                                <a href="#" onclick="removedue('{{due.Reg_No}}','{{due.Dept}}')" class="btn btn-dim btn-danger">Remove</a>
+                                            </div>
+                                            <p>{{due.Dept}}</p>
+                                            <span class="time">{{due.Reg_No}}</span>
+                                        </div>
+                                    </li>
+                                    
+                                    {% elif staff.Dept == 'Hostel' and due.Dept == 'Hostel'%}
+
+                                    <li class="nk-support-item">
+                                        <div class="user-avatar"><div class="nk-activity-media user-avatar bg-light" >{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.First}}{% endif %}{% endfor %}</div></div>
+                                        <div class="nk-support-content">
+                                            <div class="title"><span>{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.Name}}{% endif %}{% endfor %}</span>
+                                                {% if due.is_Done %}<span class="badge badge-dot badge-dot-xs badge-success ml-1">Cleared</span>{% else %}<span class="badge badge-dot badge-dot-xs badge-warning ml-1">Pending</span>{% endif %}
+                                                <a href="#" onclick="removedue('{{due.Reg_No}}','{{due.Dept}}')" class="btn btn-dim btn-danger">Remove</a>
+                                            </div>
+                                            <p>{{due.Dept}}</p>
+                                            <span class="time">{{due.Reg_No}}</span>
+                                        </div>
+                                    </li>
+
+                                    {% elif staff.Dept == 'Office' and due.Dept == 'Office'%}
+
+                                    <li class="nk-support-item">
+                                        <div class="user-avatar"><div class="nk-activity-media user-avatar bg-light" >{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.First}}{% endif %}{% endfor %}</div></div>
+                                        <div class="nk-support-content">
+                                            <div class="title"><span>{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.Name}}{% endif %}{% endfor %}</span>
+                                                {% if due.is_Done %}<span class="badge badge-dot badge-dot-xs badge-success ml-1">Cleared</span>{% else %}<span class="badge badge-dot badge-dot-xs badge-warning ml-1">Pending</span>{% endif %}
+                                                <a href="#" onclick="removedue('{{due.Reg_No}}','{{due.Dept}}')" class="btn btn-dim btn-danger">Remove</a>
+                                            </div>
+                                            <p>{{due.Dept}}</p>
+                                            <span class="time">{{due.Reg_No}}</span>
+                                        </div>
+                                    </li>
+
+                                    {% else %}
+
+                                    <li class="nk-support-item">
+                                        <div class="user-avatar"><div class="nk-activity-media user-avatar bg-light" >{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.First}}{% endif %}{% endfor %}</div></div>
+                                        <div class="nk-support-content">
+                                            <div class="title"><span>{% for student in students %}{% if student.Reg_No == due.Reg_No%}{{student.Name}}{% endif %}{% endfor %}</span>
+                                                {% if due.is_Done %}<span class="badge badge-dot badge-dot-xs badge-success ml-1">Cleared</span>{% else %}<span class="badge badge-dot badge-dot-xs badge-warning ml-1">Pending</span>{% endif %}
+                                                <a href="#" onclick="removedue('{{due.Reg_No}}','{{due.Dept}}')" class="btn btn-dim btn-danger">Remove</a>
+                                            </div>
+                                            <p>{{due.Dept}}</p>
+                                            <span class="time">{{due.Reg_No}}</span>
+                                        </div>
+                                    </li>
+
+                                    {% endif %}
+
+                                    {% endfor %}
+                                   
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="Request">
+                            <div class="card card-bordered card-full">
+                                <div class="card-inner border-bottom">
+                                    <div class="card-title-group">
+                                        <div class="card-title">
+                                            <h6 class="title">Requests</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="nk-activity is-scrollable h-325px">
+                                    {% for req in reqs %}
+
+                                    <div class="card-inner card-inner-md border-bottom">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-primary-dim" data-toggle="modal"
+                                            data-target="#modalTabs" id="open" onclick="getmodeldata('{{req.Reg_No}}')"><span>{% for student in students %}{% if student.Reg_No == req.Reg_No%}{{student.First}}{% endif %}{% endfor %}</span></div>
+                                            <div class="user-info"><span class="lead-text">{% for student in students %}{% if student.Reg_No == req.Reg_No%}{{student.Name}} Has requested for Verification{% endif %}{% endfor %}</span><span
+                                                    class="sub-text">{{req.Reg_No}}</span></div>
+                                            <div class="user-action">
+                                                <a  class="btn btn-dim btn-success" onclick="AcceptReq('{{req.Reg_No}}','{{staff.Dept}}')">Accept</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

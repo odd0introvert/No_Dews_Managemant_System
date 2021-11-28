@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="nk-content" id="nk-content">
+    <div class="container wide-xl">
+        <div class="nk-content-body">
+            <div class="nk-content-wrap">
+                <div class="nk-block-head nk-block-head-sm mt-2">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">#{{student.Reg_No}}</h3>
+                            <div class="nk-block-des text-soft">
+                                <p>Welcome to {{student.Dept}} Department year {{student.Year}} Dashboard.</p>
+                            </div>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle"><a href="#"
+                                    class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em
+                                        class="icon ni ni-more-v"></em></a>
+                                <div class="toggle-expand-content" data-content="pageMenu">
+                                    <ul class="nk-block-tools g-3">
+
+                                        <li class="nk-block-tools-opt"><a href="/logout" class="btn btn-danger"><em
+                                                    class="icon ni ni-reports"></em><span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block-top" id="reload">
+                    <div class="row g-gs">
+
+                        {% if student.Applied is False %}
+
+                        <div class="col-12 mx-auto mt-3">
+                            <div class="card-inner card card-bordered bg-white p-5">
+                                <div class="nk-block">
+                                    <div class="nk-block-head">
+                                        <h5 class="title">Personal Information</h5>
+                                        <p>Basic info, like your name and address, that you use on Nio Platform.</p>
+                                    </div>
+                                    <div class="profile-ud-list mx-auto mw-100">
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Roll Number</span><span
+                                                    class="profile-ud-value">{{student.Roll_No}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Full Name</span><span
+                                                    class="profile-ud-value">{{student.Name}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Date of Birth</span><span
+                                                    class="profile-ud-value">{{student.DOB}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Address</span><span
+                                                    class="profile-ud-value">{{student.Address}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Mobile Number</span><span
+                                                    class="profile-ud-value">+91 {{student.Phone}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Email Address</span><span
+                                                    class="profile-ud-value">{{student.Email}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Branch</span><span
+                                                    class="profile-ud-value">{{student.Dept}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Year</span><span
+                                                    class="profile-ud-value">{{student.Year}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nk-block">
+                                    <div class="nk-block-head nk-block-head-line">
+                                        <h6 class="title overline-title text-base">Additional Information</h6>
+                                    </div>
+                                    <div class="profile-ud-list mx-auto mw-100">
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Father's Name</span><span
+                                                    class="profile-ud-value">{{student.Father_Name}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Nationality</span><span
+                                                    class="profile-ud-value">{{student.Nationality}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Religion</span><span
+                                                    class="profile-ud-value">{{student.Religion}}</span></div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider"><span class="profile-ud-label">Community</span><span
+                                                    class="profile-ud-value">{{student.Caste_Community}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nk-divider divider md"></div>
+                                <div class="nk-block">
+                                    <div class="nk-block-head nk-block-head-line">
+                                        <h6 class="title overline-title text-base">Apply for Transfer Certificate</h6>
+                                    </div>
+                                   
+                                    <div class="row gy-4">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label class="form-label" for="purpose">Reason</label>
+                                                <div class="form-control-wrap"><select class="form-select select2-hidden-accessible" id="purpose"
+                                                        aria-hidden="true">
+                                                        <option value="Discontinue">Discontinue</option>
+                                                        <option value="Graduated">Graduated</option>
+                                                    </select></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label class="form-label" for="date_of_leaving">Date of leaving</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="date"
+                                                        class="form-control" id="date_of_leaving" placeholder="Input placeholder">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12" style="display:flex; flex-wrap:wrap;justify-content:flex-end;">
+                                            <button onclick="applyverification()" class="btn btn-lg btn-success">Apply</button>
+                                        </div>  
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        {% elif student.Applied is True and req.Office is False%}
+
+                        <div class="col-lg-6 mx-auto mt-4">
+                            <div class="card card-bordered h-100">
+                                <div class="card-inner border-bottom">
+                                    <div class="card-title-group">
+                                        <div class="card-title">
+                                            <h6 class="title">Verification Process</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-inner" style="display:flex; flex-wrap:wrap;justify-content:center;">
+                                    <div class="timeline">
+                                        <ul class="timeline-list">
+                                            <li class="timeline-item">
+                                            
+                                                {% if req.Dept is True%}
+                                                <div class="timeline-status bg-success"></div>
+                                                <div class="timeline-date">{{student.Dept}}<em class="icon ti ti-arrow-circle-down"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Approved</h6>
+                                                    <div class="timeline-des">
+                                                        <p>{{student.Dept}} Staff have accepted your verification request.</p>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div class="timeline-status bg-light"></div>
+                                                <div class="timeline-date">{{student.Dept}} Dept<em class="icon ti ti-time"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Pending</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Hang in there, We are working on it.</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </li>
+                                            <li class="timeline-item">
+                                                {% if req.Pg_Lab is True or UG_Lab is True%}
+                                                <div class="timeline-status bg-success"></div>
+                                                <div class="timeline-date">{% if student.Level == 'UG'%}UG Lab{% else %}Pg Lab {% endif %}<em class="icon ni ti-arrow-circle-down"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Approved</h6>
+                                                    <div class="timeline-des">
+                                                        <p>{% if student.Level == 'UG'%}UG Lab{% else %}Pg Lab {% endif %} Staff have accepted your verification request.</p>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div class="timeline-status bg-light"></div>
+                                                <div class="timeline-date">{% if student.Level == 'UG'%}UG Lab{% else %}Pg Lab {% endif %}<em class="icon ti ti-time"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Pending</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Hang in there, We are working on it.</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </li>
+                                            <li class="timeline-item">
+                                            
+                                                {% if req.Library is True%}
+                                                <div class="timeline-status bg-success"></div>
+                                                <div class="timeline-date">Library<em class="icon ti ti-arrow-circle-down"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Approved</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Library Staff have accepted your verification request.</p>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div class="timeline-status bg-light"></div>
+                                                <div class="timeline-date">Library<em class="icon ti ti-time"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Pending</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Hang in there, We are working on it.</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </li>
+                                            <li class="timeline-item">
+                                            
+                                                {% if req.Hostel is True%}
+                                                <div class="timeline-status bg-success"></div>
+                                                <div class="timeline-date">Hostel<em class="icon ti ti-arrow-circle-down"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Approved</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Hostel Staff have accepted your verification request.</p>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div class="timeline-status bg-light"></div>
+                                                <div class="timeline-date">Hostel<em class="icon ti ti-time"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Pending</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Hang in there, We are working on it.</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </li>
+                                            <li class="timeline-item">
+                                            
+                                                {% if req.Office is True%}
+                                                <div class="timeline-status bg-success"></div>
+                                                <div class="timeline-date">Office<em class="icon ti ti-arrow-circle-down"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Approved</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Office Staff have accepted your verification request.</p>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div class="timeline-status bg-light"></div>
+                                                <div class="timeline-date">Office<em class="icon ti ti-time"></em></div>
+                                                <div class="timeline-data">
+                                                    <h6 class="timeline-title">Pending</h6>
+                                                    <div class="timeline-des">
+                                                        <p>Hang in there, We are working on it.</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% else %}
+
+                        <div class="col-md-6 mx-auto mt-5">
+                            <div class="card card-bordered pricing text-center">
+                                <div class="pricing-body">
+                                    <div class="pricing-media"><img src="{% static '/images/icons/plan-s1.svg' %}" alt=""></div>
+                                    <div class="pricing-title w-220px mx-auto">
+                                        <h5 class="title">Congrats!</h5><span class="sub-text"></span>
+                                    </div>
+                                    <div class="pricing-amount">
+                                        <span class="bill">Your verification process has been completed, Please collect your Transfer certificate in the office room.</span>
+                                    </div>
+                                    <div class="pricing-action"><a href="/logout" class="btn btn-danger"><em class="icon ni ni-reports"></em><span>Logout</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                        
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

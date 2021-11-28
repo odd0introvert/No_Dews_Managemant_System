@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="nk-content">
+    <div class="container wide-xl">
+        <div class="nk-content-body">
+            <div class="nk-content-wrap">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Admin</h3>
+                            <div class="nk-block-des text-soft">
+                                <p>Welcome to {{staff.Dept}} Department year {{staff.Year}} Dashboard.</p>
+                            </div>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle"><a href="#"
+                                    class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em
+                                        class="icon ni ni-more-v"></em></a>
+                                <div class="toggle-expand-content" data-content="pageMenu">
+                                    <ul class="nk-block-tools g-3">
+
+                                        <li class="nk-block-tools-opt"><a href="/logout" class="btn btn-danger"><em
+                                                    class="icon ni ni-reports"></em><span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block" id="nk-block">
+                    <div class="row g-gs">
+
+                        <div class="col-12 mt-5 card card-bordered">
+                            <div class="card-inner">
+                                <div class="row g-gs">
+                                    <div class="col-md-2">
+                                        <ul class="nav link-list-menu border border-light round m-0">
+                                            <li><a class="active" data-toggle="tab" href="#tabItem17"><em
+                                                        class="icon ni ni-user"></em><span>Students</span></a></li>
+                                            <li><a data-toggle="tab" href="#tabItem18"><em
+                                                        class="icon ni ni-user"></em><span>Staffs</span></a></li>
+                                            <li><a data-toggle="tab" href="#tabItem19" class=""><em
+                                                        class="icon ni ni-user"></em><span>Users</span></a></li> 
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tabItem17">
+
+                                                <div class="card-inner p-0 border-top">
+                                                    <div class="nk-tb-list nk-tb-orders">
+                                                        <div class="nk-tb-item nk-tb-head">
+                                                            <div class="nk-tb-col"><span>Register No.</span></div>
+                                                            <div class="nk-tb-col tb-col-sm"><span>Student Name</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Roll Number</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Department</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Year</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Email</span></div>
+                                                            <div class="nk-tb-col tb-col-lg"><span>Phone</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Admission date</span></div>
+                                                        </div>
+                
+                                                        {% for student in students %}
+                
+                                                        <div class="nk-tb-item">
+                                                            <div class="nk-tb-col"><span class="tb-lead"><a href="#">#{{student.Reg_No}}</a></span>
+                                                            </div>
+                                                            <div class="nk-tb-col tb-col-sm">
+                                                                <div class="user-card">
+                                                                    <div class="user-avatar user-avatar-sm bg-light"><span>{{student.First}}</span>
+                                                                    </div>
+                                                                    <div class="user-name"><span class="tb-lead">{{student.Name}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-tb-col"><span class="tb-lead text-primary">{{student.Roll_No}}</span>
+                                                            </div>
+                                                            <div class="nk-tb-col tb-col-md"><span class="tb-sub">{{student.Dept}}</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span class="tb-sub"><span class="badge badge-dim badge-pill badge-info">{{student.Year}}</span></span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span class="tb-lead"><a href="mailto:{{student.Email}}">{{student.Email}}</a></span></div>
+                                                            <div class="nk-tb-col tb-col-lg"><span class="tb-sub text-primary">{{student.Phone}}</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span class="tb-sub">{{student.Date_Of_Admission}}</span></div>
+                
+                                                        </div>
+                
+                                                        {% endfor %}
+                
+                                                    </div>
+                                                </div>
+                                                    
+                                            </div>
+                                            <div class="tab-pane" id="tabItem18">
+
+                                                <div class="card-inner p-0 border-top">
+                                                    <div class="nk-tb-list nk-tb-orders">
+                                                        <div class="nk-tb-item nk-tb-head">
+                                                            <div class="nk-tb-col"><span>Department</span></div>
+                                                            <div class="nk-tb-col tb-col-sm"><span>Email</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Year</span></div>
+                                                        </div>
+                
+                                                        {% for staff in staffs %}
+                
+                                                        <div class="nk-tb-item">
+                                                            <div class="nk-tb-col"><span class="tb-lead"><a href="#">{{staff.Dept}}</a></span>
+                                                            </div>
+                                                            <div class="nk-tb-col"><span class="tb-lead"><a href="mailto:{{staff.Email}}">{{staff.Email}}</a></span>
+                                                            </div>
+                                                            <div class="nk-tb-col"><span class="tb-lead"><a href="#"><span class="badge badge-dim badge-pill badge-info">{{staff.Year}}</span></a></span>
+                                                            </div>
+                                                            
+                                                            
+                
+                                                        </div>
+                
+                                                        {% endfor %}
+                
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="tab-pane" id="tabItem19">
+
+
+                                                <div class="card-inner p-0 border-top">
+                                                    <div class="nk-tb-list nk-tb-orders">
+                                                        <div class="nk-tb-item nk-tb-head">
+                                                            <div class="nk-tb-col"><span>Username</span></div>
+                                                            <div class="nk-tb-col tb-col-sm"><span>Role</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Joined date</span></div>
+                                                            <div class="nk-tb-col tb-col-md"><span>Last login</span></div>
+                                                        </div>
+                
+                                                        {% for user in users %}
+                
+                                                        <div class="nk-tb-item">
+                                                            <div class="nk-tb-col"><span class="tb-lead"><a href="#">{{user.username}}</a></span>
+                                                            </div>
+                                                            <div class="nk-tb-col"><span class="tb-lead"><span class="badge badge-dim badge-pill badge-info">{% if user.is_student is True %}Student{% elif user.is_staff is True%}Staff{% else %}Admin{% endif %}</span></span>
+                                                            </div>
+                                                            <div class="nk-tb-col"><span class="tb-lead">{{user.date_joined}}</span>
+                                                            </div>
+                                                            <div class="nk-tb-col"><span class="tb-lead">{{user.last_login}}</span>
+                                                            </div>
+                                                            
+                
+                                                        </div>
+                
+                                                        {% endfor %}
+                
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
