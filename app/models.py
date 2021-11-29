@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     
     Year =  models.IntegerField(max_length=2, default=None, null=True, blank=True)
+    Dept = models.CharField(max_length=20, default=None, null=True, blank=True)
     is_admin = models.BooleanField('Is admin', default=False)
     is_staff = models.BooleanField('Is staff', default=False)
     is_student = models.BooleanField('Is student', default=False)

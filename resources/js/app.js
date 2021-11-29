@@ -112,28 +112,29 @@ $('#search').on('submit', function(event){
             success: function( data ) 
         {
             output = JSON.parse(data)
+            console.log(data)
             document.getElementById("searchregno").innerHTML = output[0].fields.Reg_No;
             document.getElementById("searchfirst").innerHTML = output[0].fields.First;
             document.getElementById("searchname").innerHTML = output[0].fields.Name;
             document.getElementById("searchrollno").innerHTML = output[0].fields.Roll_No;
+            document.getElementById("searchdept").innerHTML = output[0].fields.Dept;
             document.getElementById("searchemail").innerHTML = output[0].fields.Email;
             document.getElementById("searchphone").innerHTML = output[0].fields.Phone;
         }
         })
 });
 
-$('#apply').on('submit', function(event){
-    event.preventDefault();
-    console.log('hit apply')
+function applyverification(){
     $.ajax(
         {
             type:"POST",
             url: "",
-            data : { reason : $('#purpose').val(), date_of_leaving : $('#date_of_leaving').val(), csrfmiddlewaretoken: csrftoken },
+            data : { purpose : $('#purpose').val(), date_of_leaving : $('#date_of_leaving').val(), csrfmiddlewaretoken: csrftoken },
             dataType: 'json',
             success: function( data ) 
         {
-            $("#nk-block-top").load(location.href + " #nk-block-top");
+            $("#reload").load(location.href + " #reload");
         }
         })
-});
+};
+

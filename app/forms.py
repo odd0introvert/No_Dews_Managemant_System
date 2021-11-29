@@ -3,10 +3,14 @@ from app.models import Staff
 
 staffs = Staff.objects.filter().values()
 
-StaffDept = tuple()
+temp = tuple()
 
 for staff in staffs:
-    StaffDept += ((staff["Dept"],staff["Dept"]),)
+    temp += ((staff["Dept"],staff["Dept"]),)
+
+StaffDept = tuple(set(temp))
+
+print(StaffDept)
 
 StaffYear =(
     ("1", "1St year"),

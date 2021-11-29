@@ -173,7 +173,7 @@
                                                 {% endif %}
                                             </li>
                                             <li class="timeline-item">
-                                                {% if req.Pg_Lab is True or UG_Lab is True%}
+                                                {% if req.PG_Lab is True or req.UG_Lab is True%}
                                                 <div class="timeline-status bg-success"></div>
                                                 <div class="timeline-date">{% if student.Level == 'UG'%}UG Lab{% else %}Pg Lab {% endif %}<em class="icon ni ti-arrow-circle-down"></em></div>
                                                 <div class="timeline-data">

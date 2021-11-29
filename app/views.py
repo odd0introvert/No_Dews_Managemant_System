@@ -25,21 +25,20 @@ def stafflogin(request):
             Department = form.cleaned_data.get('Department')
             password = form.cleaned_data.get('Password')
             year = form.cleaned_data.get('Year')
-            user = authenticate(username=Department, password=password, Year=year)
+            name = Department + year
+            user = authenticate(username=name, password=password, Year=year)
             
-            if Staff.objects.filter(Dept=Department,Year=year).exists():
-                if user is not None and user.is_staff:
-                    login(request, user)
-                    return redirect('staff')
-                elif User.objects.filter(username=Department, Year=year).exists():
-                    msg='Invalid Credentials'
-                else:
-                    create = User(username=Department, password=make_password(password), is_staff = True, Year=year)
-                    create.save()
-                    msg='User Created, Please login to continue'
-                    return render(request, 'staff-login.html',{'form':form,'msg':msg})
+            if user is not None and user.is_staff:
+                login(request, user)
+                return redirect('staff')
+            elif User.objects.filter(username=Department, Year=year).exists():
+                msg='Invalid Credentials'
             else:
-                msg='Something went Wrong'
+                create = User(username=name, password=make_password(password), is_staff = True, Year=year, Dept=Department)
+                create.save()
+                msg='User Created, Please login to continue'
+                return render(request, 'staff-login.html',{'form':form,'msg':msg})
+            
             
     if request.user.is_authenticated and request.user.is_staff:
         return redirect('staff')
@@ -121,7 +120,7 @@ def sendemail(regno,email,context,subject):
 
 def getdues(request):
 
-    staff = Staff.objects.get(Dept=request.user.username)
+    staff = Staff.objects.get(Dept=request.user.Dept, Year=request.user.Year)
     students = Student.objects.filter().values()
 
     if staff.Dept == "PG_Lab":
@@ -137,7 +136,7 @@ def getdues(request):
     else:
         temp = list()
         for student in students:
-            if student["Dept"] == staff.Dept:
+            if student["Dept"] == staff.Dept and student["Year"] == staff.Year:
                 temp.append(student["Reg_No"])
         dues = Due.objects.filter(Reg_No__in=temp)
 
@@ -145,7 +144,7 @@ def getdues(request):
 
 def ajaxget(request):
     
-    staff = Staff.objects.get(Dept=request.user.username)
+    staff = Staff.objects.get(Dept=request.user.Dept, Year=request.user.Year)
     regno = request.GET.get('regno', None)
     search = request.GET.get('search', None)
     getmodeldata = request.GET.get('getmodeldata', None)
@@ -214,12 +213,14 @@ def ajaxpost(request):
 
 def getreq(request):
 
-    staff = Staff.objects.get(Dept=request.user.username)
+    staff = Staff.objects.get(Dept=request.user.Dept, Year=request.user.Year)
+    # print(staff.Year)
     students = Student.objects.filter().values()
 
     temp = list()
     for student in students:
-        if student["Dept"] == staff.Dept:
+        # print(student["Year"])
+        if student["Dept"] == staff.Dept and student["Year"] == staff.Year:
             temp.append(student["Reg_No"])
 
     if staff.Dept == "Library":
@@ -245,7 +246,7 @@ def getreq(request):
     else:
         temp1 = list()
         for student in students:
-            if student["Dept"] == staff.Dept:
+            if student["Dept"] == staff.Dept and student["Year"] == staff.Year:
                 temp1.append(student["Reg_No"])
         reqs = Requests.objects.filter(Reg_No__in=temp1,Dept='0')
 
@@ -255,16 +256,16 @@ def getreq(request):
 
 def staff(request):
     if request.user.is_staff:
-        staff = Staff.objects.get(Dept=request.user.username)
+        staff = Staff.objects.get(Dept=request.user.Dept, Year=request.user.Year)
         students = Student.objects.filter().values()
 
         temp = list()
         for student in students:
-            if student["Dept"] == staff.Dept:
+            if student["Dept"] == staff.Dept and student["Year"] == staff.Year:
                 print(student["Reg_No"])
                 temp.append(student["Reg_No"])
         print(temp)
-        dept_students = Student.objects.filter(Reg_No__in=temp)
+        dept_students = Student.objects.filter(Reg_No__in=temp, Dept=staff.Dept)
         dues = getdues(request)
         reqs = getreq(request)
         

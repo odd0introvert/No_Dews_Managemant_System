@@ -19,28 +19,48 @@
                                 required=""></div>
                     </div>
                     
-                    <div class="form-group"><label class="form-label" for="AddDueDept">Branch</label>
-                        <div class="form-control-wrap">
-                            <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
+                    <div class="form-group">
+                            
                                 {% if staff.Dept == "PG_Lab" %}
+                                <label class="form-label" for="AddDueDept">Branch</label>
+                                <div class="form-control-wrap">
+                                <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
                                 <option value="PG_Lab" >PG Lab</option>
+                                </select>
+                                </div>
                                 {% elif staff.Dept == "UG_Lab" %}
+                                <label class="form-label" for="AddDueDept">Branch</label>
+                                <div class="form-control-wrap">
+                                <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
                                 <option value="UG_Lab" >UG Lab</option>
+                                </select>
+                                </div>
                                 {% elif staff.Dept == "Library" %}
+                                <label class="form-label" for="AddDueDept">Branch</label>
+                                <div class="form-control-wrap">
+                                <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
                                 <option value="Library" >Library</option>
+                                </select>
+                                </div>
                                 {% elif staff.Dept == "Hostel" %}
+                                <label class="form-label" for="AddDueDept">Branch</label>
+                                <div class="form-control-wrap">
+                                <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
                                 <option value="Hostel" >Hostel</option>
+                                </select>
+                                </div>
                                 {% elif staff.Dept == "Office" %}
+                                <label class="form-label" for="AddDueDept">Branch</label>
+                                <div class="form-control-wrap">
+                                <select class="form-select select2-hidden-accessible" aria-hidden="true" name="duedept" id="AddDueDept" required="">
                                 <option value="Office" >Office</option>
+                                </select>
+                                </div>
                                 {% else %}
-                                <option value="Library" >Library</option>
-                                <option value="UG_Lab" >UG Lab</option>
-                                <option value="PG_Lab" >PG Lab</option>
-                                <option value="Hostel" >Hostel</option>
-                                <option value="Office" >Office</option>
+                                <input type="hidden" name="duedept" id="AddDueDept" value="{{staff.Dept}}">
                                 {% endif %}
-                            </select>
-                        </div>
+                            
+                        
                     </div>
 
                     <div class="form-group"><label class="form-label" for="AddDueYear">Semester</label>
@@ -54,7 +74,7 @@
                     </div>
                     </div>
 
-                    <div class="form-group"><label class="form-label" for="AddDueStatus">Semester</label>
+                    <div class="form-group"><label class="form-label" for="AddDueStatus">Due</label>
                         <div class="form-control-wrap"><select class="form-select select2-hidden-accessible"
                             aria-hidden="true" name="duesem" id="AddDueStatus" >
                             <option value="True" >Yes</option>
@@ -229,6 +249,7 @@
                                                 <div class="nk-tb-col"><span>Register No.</span></div>
                                                 <div class="nk-tb-col tb-col-sm"><span>Student Name</span></div>
                                                 <div class="nk-tb-col tb-col-md"><span>Roll Number</span></div>
+                                                <div class="nk-tb-col tb-col-sm"><span>Department</span></div>
                                                 <div class="nk-tb-col tb-col-md"><span>Email</span></div>
                                                 <div class="nk-tb-col tb-col-lg"><span>Phone</span></div>
                                             </div>
@@ -245,6 +266,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="nk-tb-col"><span class="tb-lead"><a href="#" id="searchrollno">...</a></span>
+                                                </div>
+                                                <div class="nk-tb-col"><span class="tb-lead"><a href="#" id="searchdept">...</a></span>
                                                 </div>
                                                 <div class="nk-tb-col tb-col-md"><span class="tb-sub" id="searchemail">...</span></div>
                                                 <div class="nk-tb-col tb-col-lg"><span class="tb-sub text-primary" id="searchphone">...</span></div>
